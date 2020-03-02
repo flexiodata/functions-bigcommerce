@@ -1,0 +1,35 @@
+title: BigCommerce Integration
+description: Functions for accessing your BigCommerce info
+image:
+  src:
+  alt: BigCommerce logo
+functions:
+  - path: bigcommerce-products.py
+prompts:
+  - element: form
+    name: bigcommerce_connection
+    title: BigCommerce Connection
+    description: |
+      Use your BigCommerce store url and access token to access your BigCommerce store info
+    class: el-form--cozy el-form__label-tiny
+    rules:
+      bigcommerce_store_url:
+        - required: true
+          message: Please enter a valid store URL to continue.
+      bigcommerce_api_key:
+        - required: true
+          message: Please enter a valid API key to continue.
+    form_items:
+      - element: input
+        type: text
+        name: bigcommerce_store_url
+        label: Store url
+        placeholder: Store url
+        value: ''
+    form_items:
+      - element: input
+        type: text
+        name: bigcommerce_api_key
+        label: API key
+        placeholder: API key
+        value: ''
