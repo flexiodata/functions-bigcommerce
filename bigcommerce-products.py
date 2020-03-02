@@ -102,7 +102,7 @@ def flexio_handler(flex):
         # https://bigcommerce.github.io/storefront-api-examples/html-bootstrap-vanillajs/
         # https://buybutton.store/shop-all/
 
-        url = store_url . '/graphql'
+        url = store_url + '/graphql'
         headers = {
             'Accept': 'application/json',
             'Content-Type': 'application/json',
