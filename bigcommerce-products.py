@@ -55,8 +55,7 @@ from collections import OrderedDict
 def flexio_handler(flex):
 
     # get the api key from the variable input
-    #store_url = dict(flex.vars).get('bigcommerce_store_url')
-    # TODO: add store url here
+    store_url = dict(flex.vars).get('bigcommerce_store_url')
     auth_token = dict(flex.vars).get('bigcommerce_api_key')
     if auth_token is None:
         flex.output.content_type = "application/json"
@@ -101,6 +100,9 @@ def flexio_handler(flex):
         # example store:
         # https://bigcommerce.github.io/storefront-api-examples/html-bootstrap-vanillajs/
         # https://buybutton.store/shop-all/
+
+        # TODO: temporarily use example; remove
+        store_url = 'https://buybutton.store'
 
         url = store_url + '/graphql'
         headers = {
