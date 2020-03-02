@@ -1,8 +1,8 @@
 
 # ---
-# name: bigcommerce-list-products
+# name: bigcommerce-products
 # deployed: true
-# title: BigCommerce List Products
+# title: BigCommerce Products
 # description: Returns a list of products from a BigCommerce Store
 # params:
 #   - name: properties
@@ -55,8 +55,9 @@ from collections import OrderedDict
 def flexio_handler(flex):
 
     # get the api key from the variable input
-    store_url = dict(flex.vars).get('bigcommerce_connection',{}).get('bigcommerce_store_url')
-    auth_token = dict(flex.vars).get('bigcommerce_connection',{}).get('bigcommerce_api_key')
+    #store_url = dict(flex.vars).get('bigcommerce_store_url')
+    # TODO: add store url here
+    auth_token = dict(flex.vars).get('bigcommerce_api_key')
     if auth_token is None:
         flex.output.content_type = "application/json"
         flex.output.write([[""]])
