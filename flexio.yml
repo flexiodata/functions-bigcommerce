@@ -10,22 +10,13 @@ prompts:
     name: form_api_key
     title: BigCommerce API key
     description: |
-      Use your BigCommerce API key to access your BigCommerce store.
+      Use your BigCommerce API key to access your BigCommerce store
     class: el-form--cozy el-form__label-tiny
     rules:
       bigcommerce_api_key:
         - required: true
-          message: Please enter a valid API key to continue.
-      bigcommerce_store_url:
-        - required: true
-          message: Please enter a valid BigCommerce store url.
+          message: Please enter a valid BigCommerce API key to continue.
     form_items:
-      - element: input
-        type: text
-        name: bigcommerce_store_url
-        label: BigCommerce Store
-        placeholder: BigCommerce store
-        value: ''
       - element: input
         type: text
         name: bigcommerce_api_key
