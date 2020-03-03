@@ -150,7 +150,7 @@ def flexio_handler(flex):
 
         # build up the result
         result = []
-        result.append(properties)
+        #result.append(properties) # TODO: don't include column names for now
 
         edges = content.get('data',{}).get('site',{}).get('products',{}).get('edges',[])
         for item in edges:
