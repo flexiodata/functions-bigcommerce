@@ -19,18 +19,24 @@
 #   - name: name
 #     type: string
 #     description: The name of the product
+#   - name: title
+#     type: string
+#     description: The name of the product (alias for name currently)
 #   - name: sku
 #     type: string
 #     description: The sku of the product
-#   - name: path
+#   - name: page_url
 #     type: string
-#     description: A path to the product
+#     description: The url for the product page
 #   - name: description
 #     type: string
 #     description: A description of the product
+#   - name: search_words
+#     type: string
+#     description: Search words for the product (currently taken from slug)
 #   - name: image_url
 #     type: string
-#     description: A url for the product
+#     description: The url for the product image
 #   - name: price
 #     type: string
 #     description: The price for the product
@@ -38,8 +44,9 @@
 #     type: string
 #     description: The price currency for the product price
 # examples:
-#   - '"*"'
+#   - '"entity_id, sku, name, page_url, title, search_words, description"'
 #   - '"name, price"'
+#   - '"*"'
 # ---
 
 import json
@@ -50,6 +57,7 @@ from datetime import *
 from decimal import *
 from cerberus import Validator
 from collections import OrderedDict
+from bs4 import BeautifulSoup
 
 # main function entry point
 def flexio_handler(flex):
@@ -84,13 +92,32 @@ def flexio_handler(flex):
         raise ValueError
 
     # map this function's property names to the API's property names
+    def getDescription(item):
+            description = item.get('description','')
+            soup = BeautifulSoup(description, 'lxml') # Parse the HTML as a string
+            items = soup.find_all(text=True)
+            if len(items) == 0:
+                return ''
+            return items[0]
+    def getSearchWords(item):
+            path = item.get('path','')
+            words = path.split("-")
+            keywords = []
+            for word in words:
+                w = word.strip(' \\/')
+                if len(w) >= 3:
+                    keywords.append(w)
+            keywords.sort()
+            return ",".join(keywords)
     property_map = OrderedDict()
     property_map['id'] = lambda item: item.get('id','')
     property_map['entity_id'] = lambda item: item.get('entityId','')
     property_map['name'] = lambda item: item.get('name','')
+    property_map['title'] = lambda item: item.get('name','')  # TODO: get the page title rather than the product name
     property_map['sku'] = lambda item: item.get('sku','')
-    property_map['path'] = lambda item: item.get('path','')
-    property_map['description'] = lambda item: item.get('description','')
+    property_map['page_url'] = lambda item: item.get('path','')
+    property_map['description'] = lambda item: getDescription(item)
+    property_map['search_words'] = lambda item: getSearchWords(item)
     property_map['image_url'] = lambda item: item.get('defaultImage',{}).get('img640px','')
     property_map['price'] = lambda item: item.get('prices').get('price',{}).get('value','')
     property_map['price_currency'] = lambda item: item.get('prices').get('price',{}).get('currencyCode','')
