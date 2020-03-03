@@ -9,7 +9,6 @@
 #     type: array
 #     description: The properties to return (defaults to all properties). See "Returns" for a listing of the available properties.
 #     required: false
-# params:
 #   - name: sku
 #     type: string
 #     description: A filter to return a specific SKU (defaults to all SKUs)
