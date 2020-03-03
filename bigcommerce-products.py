@@ -9,6 +9,11 @@
 #     type: array
 #     description: The properties to return (defaults to all properties). See "Returns" for a listing of the available properties.
 #     required: false
+# params:
+#   - name: sku
+#     type: string
+#     description: A filter to return a specific SKU (defaults to all SKUs)
+#     required: false
 # returns:
 #   - name: id
 #     type: string
@@ -45,7 +50,7 @@
 #     description: The price currency for the product price
 # examples:
 #   - '"entity_id, sku, name, page_url, title, search_words, description"'
-#   - '"name, price"'
+#   - '"name, price", "OTL"'
 #   - '"*"'
 # ---
 
@@ -82,6 +87,7 @@ def flexio_handler(flex):
     # based on the positions of the keys/values
     params = OrderedDict()
     params['properties'] = {'required': False, 'validator': validator_list, 'coerce': to_list, 'default': '*'}
+    params['sku'] = {'required': False, 'type': 'string'}
     input = dict(zip(params.keys(), input))
 
     # validate the mapped input against the validator
@@ -148,6 +154,9 @@ def flexio_handler(flex):
         if len(properties) == 1 and properties[0] == '*':
             properties = list(property_map.keys())
 
+        # get the sku filter if available
+        sku_filter = input.get('sku',False)
+
         # build up the result
         result = []
         #result.append(properties) # TODO: don't include column names for now
@@ -156,6 +165,9 @@ def flexio_handler(flex):
         for item in edges:
             product = item.get('product',{})
             row = [property_map.get(p, lambda item: '')(product) or '' for p in properties]
+            if sku_filter is not False:
+                if product['sku'].lower() != sku_filter.lower():
+                    continue
             result.append(row)
 
         flex.output.content_type = "application/json"
