@@ -223,6 +223,7 @@
 #   - '"*"'
 #   - '"id, name, sku, description, price"'
 #   - '"", "coffeemaker"'
+#   - '"id, sku, search_keywords, meta_keywords", "search_keywords:jar"'
 # ---
 
 import json
@@ -293,7 +294,7 @@ def getProductInfo(item):
     info['calculated_price'] = item.get('calculated_price')
     info['tax_class_id'] = item.get('tax_class_id')
     info['product_tax_code'] = item.get('product_tax_code')
-    info['categories'] = ','.join([str(i) for i in item.get('categories',[])]) # convert to comma-delimited string
+    info['categories'] = ', '.join([str(i) for i in item.get('categories',[])]) # convert to comma-delimited string
     info['brand_id'] = item.get('brand_id')
     info['option_set_id'] = item.get('option_set_id')
     info['option_set_display'] = item.get('option_set_display')
@@ -308,7 +309,7 @@ def getProductInfo(item):
     info['is_free_shipping'] = item.get('is_free_shipping')
     info['is_visible'] = item.get('is_visible')
     info['is_featured'] = item.get('is_featured')
-    info['related_products'] = ','.join([str(i) for i in item.get('related_products',[])]) # convert to comma-delimited string
+    info['related_products'] = ', '.join([str(i) for i in item.get('related_products',[])]) # convert to comma-delimited string
     info['warranty'] = item.get('warranty')
     info['bin_picking_number'] = item.get('bin_picking_number')
     info['layout_file'] = item.get('layout_file')
@@ -319,14 +320,14 @@ def getProductInfo(item):
     info['availability'] = item.get('availability')
     info['availability_description'] = item.get('availability_description')
     info['gift_wrapping_options_type'] = item.get('gift_wrapping_options_type')
-    info['gift_wrapping_options_list'] = ','.join([str(i) for i in item.get('gift_wrapping_options_list',[])]) # convert to comma-delimited string
+    info['gift_wrapping_options_list'] = ', '.join([str(i) for i in item.get('gift_wrapping_options_list',[])]) # convert to comma-delimited string
     info['sort_order'] = item.get('sort_order')
     info['condition'] = item.get('condition')
     info['is_condition_shown'] = item.get('is_condition_shown')
     info['order_quantity_minimum'] = item.get('order_quantity_minimum')
     info['order_quantity_maximum'] = item.get('order_quantity_maximum')
     info['page_title'] = item.get('page_title')
-    info['meta_keywords'] = ','.join([i for i in item.get('meta_keywords',[])]) # convert to comma-delimited string
+    info['meta_keywords'] = ', '.join([i for i in item.get('meta_keywords',[])]) # convert to comma-delimited string
     info['meta_description'] = item.get('meta_description')
     info['preorder_release_date'] = item.get('preorder_release_date')
     info['preorder_message'] = item.get('preorder_message')
