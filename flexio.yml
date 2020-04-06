@@ -38,6 +38,6 @@ prompts:
       - element: input
         type: text
         name: bigcommerce_access_token
-        label: Client ID
-        placeholder: Client ID
+        label: Client Access Token
+        placeholder: Client Access Token
         value: ''

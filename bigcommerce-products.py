@@ -30,34 +30,34 @@
 #     type: string
 #     description: The product description, which can include HTML formatting
 #   - name: weight
-#     type: number
+#     type: numeric
 #     description: Weight of the product, which can be used when calculating shipping costs
 #   - name: width
-#     type: number
+#     type: numeric
 #     description: Width of the product, which can be used when calculating shipping costs
 #   - name: depth
-#     type: number
+#     type: numeric
 #     description: Depth of the product, which can be used when calculating shipping costs
 #   - name: height
-#     type: number
+#     type: numeric
 #     description: Height of the product, which can be used when calculating shipping costs
 #   - name: price
-#     type: number
+#     type: numeric
 #     description: The price of the product
 #   - name: cost_price
-#     type: number
+#     type: numeric
 #     description: The cost price of the product
 #   - name: retail_price
-#     type: number
+#     type: numeric
 #     description: The retail cost of the product
 #   - name: sale_price
-#     type: number
+#     type: numeric
 #     description: If entered, the sale price will be used instead of value in the price field when calculating the product’s cost
 #   - name: map_price
-#     type: number
+#     type: numeric
 #     description: Minimum advertised price
 #   - name: calculated_price
-#     type: number
+#     type: numeric
 #     description: The price of the product as seen on the storefront
 #   - name: tax_class_id
 #     type: integer
@@ -99,7 +99,7 @@
 #     type: integer
 #     description: The total quantity of this product sold
 #   - name: fixed_cost_shipping_price
-#     type: number
+#     type: numeric
 #     description: A fixed shipping cost for the product
 #   - name: is_free_shipping
 #     type: boolean
@@ -226,9 +226,6 @@
 
 import json
 import requests
-import urllib
-from datetime import *
-from decimal import *
 from collections import OrderedDict
 
 # main function entry point
@@ -239,40 +236,33 @@ def flexio_handler(flex):
     client_id = dict(flex.vars).get('bigcommerce_client_id')
     access_token = dict(flex.vars).get('bigcommerce_access_token')
 
+    # example store:
+    # https://bigcommerce.github.io/storefront-api-examples/html-bootstrap-vanillajs/
+    # https://buybutton.store/shop-all/
 
+    # products api:
+    # https://api.bigcommerce.com/stores/z1koq2uxgr/v3/catalog/products
 
-    try:
+    url = 'https://api.bigcommerce.com/stores/' + store_hash + '/v3/catalog/products'
+    headers = {
+        'X-Auth-Client': client_id,
+        'X-Auth-Token': access_token
+    }
 
-        # example store:
-        # https://bigcommerce.github.io/storefront-api-examples/html-bootstrap-vanillajs/
-        # https://buybutton.store/shop-all/
+    response = requests.get(url, headers=headers)
+    response.raise_for_status()
+    content = response.json()
 
-        # products api:
-        # https://api.bigcommerce.com/stores/z1koq2uxgr/v3/catalog/products
+    # build up the result
+    result = []
 
-        url = 'https://api.bigcommerce.com/stores/' + store_hash + '/v3/catalog/products
-        headers = {
-            'X-Auth-Client': client_id,
-            'X-Auth-Token': access_token
-        }
+    products = content.get('data')
+    for item in products:
+        result.append(getProductInfo(item))
 
-        response = requests.get(url, data=json.dumps(data), headers=headers)
-        response.raise_for_status()
-        content = response.json()
-
-        # build up the result
-        result = []
-
-        products = content.get('data')
-        for item in products:
-            result += getProductInfo(item)
-
-        flex.output.content_type = "application/json"
-        flex.output.write(result)
-
-    except:
-        flex.output.content_type = 'application/json'
-        flex.output.write([['']])
+    result = json.dumps(result, default=to_string)
+    flex.output.content_type = "application/json"
+    flex.output.write(result)
 
 def to_string(value):
     if isinstance(value, (date, datetime)):
@@ -281,8 +271,8 @@ def to_string(value):
         return str(value)
     return value
 
-def getProductInfo(item)
-{
+def getProductInfo(item):
+
     info = OrderedDict()
 
     info['id'] = item.get('id')
@@ -355,5 +345,3 @@ def getProductInfo(item)
     info['date_modified'] = item.get('date_modified')
 
     return info
-}
-
