@@ -8,27 +8,36 @@ functions:
 prompts:
   - element: form
     name: form_api_key
-    title: BigCommerce API key
+    title: BigCommerce API information
     description: |
-      Use your BigCommerce API key to access your BigCommerce store
+      Provide your BigCommerce API information to access your BigCommerce store
     class: el-form--cozy el-form__label-tiny
     rules:
-      bigcommerce_store_url:
+      bigcommerce_store_hash:
         - required: true
-          message: Please enter a valid BigCommerce Store URL to continue.
-      bigcommerce_api_key:
+          message: Please enter a valid BigCommerce Store Hash to continue.
+      bigcommerce_client_id:
         - required: true
-          message: Please enter a valid BigCommerce API key to continue.
+          message: Please enter a valid BigCommerce Client ID to continue.
+      bigcommerce_access_token:
+        - required: true
+          message: Please enter a valid BigCommerce Access Token key to continue.
     form_items:
       - element: input
         type: text
-        name: bigcommerce_store_url
-        label: Store
-        placeholder: Store
+        name: bigcommerce_store_hash
+        label: Store Hash
+        placeholder: Store Hash
         value: ''
       - element: input
         type: text
-        name: bigcommerce_api_key
-        label: API key
-        placeholder: API key
+        name: bigcommerce_client_id
+        label: Client ID
+        placeholder: Client ID
+        value: ''
+      - element: input
+        type: text
+        name: bigcommerce_access_token
+        label: Client ID
+        placeholder: Client ID
         value: ''
