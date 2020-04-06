@@ -190,7 +190,7 @@
 #     type: string
 #     description: Category URL on the storefront
 #   - name: custom_url
-#     type: object
+#     type: string
 #     description: The custom URL for the category on the storefront
 #   - name: base_variant_id
 #     type: integer
