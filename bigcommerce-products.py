@@ -2,6 +2,7 @@
 # ---
 # name: bigcommerce-products
 # deployed: true
+# config: index
 # title: BigCommerce Products
 # description: Returns a list of products from a BigCommerce Store
 # params:
