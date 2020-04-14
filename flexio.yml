@@ -1,7 +1,7 @@
 title: BigCommerce Integration
 description: Functions for accessing your BigCommerce info
 image:
-  src: https://logo.clearbit.com/bigcommerce.com
+  src: https://static.flex.io/assets/logos2/bigcommerce.png
   alt: BigCommerce logo
 functions:
   - path: bigcommerce-products.py
