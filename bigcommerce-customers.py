@@ -4,7 +4,7 @@
 # deployed: true
 # config: index
 # title: BigCommerce Customers
-# description: Returns a list of customers from a BigCommerce Store
+# description: Returns a list of customers for a BigCommerce Store
 # params:
 #   - name: properties
 #     type: array
