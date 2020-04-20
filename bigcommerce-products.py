@@ -252,7 +252,7 @@ def get_data(params):
     # https://buybutton.store/shop-all/
 
     # products api:
-    # https://api.bigcommerce.com/stores/z1koq2uxgr/v3/catalog/products
+    # https://developer.bigcommerce.com/api-reference/store-management/catalog/products/getproducts
 
     headers = {
         'X-Auth-Client': client_id,
