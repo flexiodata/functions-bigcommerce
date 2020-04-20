@@ -4,6 +4,7 @@ image:
   src: https://static.flex.io/assets/logos2/bigcommerce.png
   alt: BigCommerce logo
 functions:
+  - path: bigcommerce-customers.py
   - path: bigcommerce-products.py
 
 templates:
