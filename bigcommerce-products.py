@@ -227,6 +227,7 @@
 # ---
 
 import json
+import urllib
 import requests
 from requests.adapters import HTTPAdapter
 from requests.packages.urllib3.util.retry import Retry
@@ -259,23 +260,27 @@ def get_data(params):
         'X-Auth-Token': access_token
     }
     url = 'https://api.bigcommerce.com/stores/' + store_hash + '/v3/catalog/products'
-    page_size = 250
-    page_query_str = '?limit=' + str(page_size)
 
+    page_size = 250
+    page_idx = 1
     while True:
 
-        page_url = url + page_query_str
+        url_query_params = {'limit': page_size, 'page': page_idx}
+        url_query_str = urllib.parse.urlencode(url_query_params)
+
+        page_url = url + '?' + url_query_str
         response = requests_retry_session().get(page_url, headers=headers)
         response.raise_for_status()
         content = response.json()
 
-        products = content.get('data')
-        for item in products:
-            yield getProductInfo(item)
-
-        page_query_str = content.get('meta',{}).get('pagination',{}).get('links',{}).get('next')
-        if page_query_str is None:
+        data = content.get('data')
+        if len(data) == 0:
             break
+
+        for item in data:
+            yield get_item_info(item)
+
+        page_idx = page_idx + 1
 
 def requests_retry_session(
     retries=3,
@@ -303,7 +308,7 @@ def to_string(value):
         return str(value)
     return value
 
-def getProductInfo(item):
+def get_item_info(item):
 
     info = OrderedDict()
 
