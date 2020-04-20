@@ -31,34 +31,34 @@
 #     type: string
 #     description: The product description, which can include HTML formatting
 #   - name: weight
-#     type: numeric
+#     type: number
 #     description: Weight of the product, which can be used when calculating shipping costs
 #   - name: width
-#     type: numeric
+#     type: number
 #     description: Width of the product, which can be used when calculating shipping costs
 #   - name: depth
-#     type: numeric
+#     type: number
 #     description: Depth of the product, which can be used when calculating shipping costs
 #   - name: height
-#     type: numeric
+#     type: number
 #     description: Height of the product, which can be used when calculating shipping costs
 #   - name: price
-#     type: numeric
+#     type: number
 #     description: The price of the product
 #   - name: cost_price
-#     type: numeric
+#     type: number
 #     description: The cost price of the product
 #   - name: retail_price
-#     type: numeric
+#     type: number
 #     description: The retail cost of the product
 #   - name: sale_price
-#     type: numeric
+#     type: number
 #     description: If entered, the sale price will be used instead of value in the price field when calculating the product’s cost
 #   - name: map_price
-#     type: numeric
+#     type: number
 #     description: Minimum advertised price
 #   - name: calculated_price
-#     type: numeric
+#     type: number
 #     description: The price of the product as seen on the storefront
 #   - name: tax_class_id
 #     type: integer
@@ -100,7 +100,7 @@
 #     type: integer
 #     description: The total quantity of this product sold
 #   - name: fixed_cost_shipping_price
-#     type: numeric
+#     type: number
 #     description: A fixed shipping cost for the product
 #   - name: is_free_shipping
 #     type: boolean
@@ -228,15 +228,24 @@
 
 import json
 import requests
+from requests.adapters import HTTPAdapter
+from requests.packages.urllib3.util.retry import Retry
 from collections import OrderedDict
 
 # main function entry point
 def flexio_handler(flex):
 
+    flex.output.content_type = 'application/x-ndjson'
+    for item in get_data(flex.vars):
+        result = json.dumps(item, default=to_string) + "\n"
+        flex.output.write(result)
+
+def get_data(params):
+
     # get the api key from the variable input
-    store_hash = dict(flex.vars).get('bigcommerce_store_hash')
-    client_id = dict(flex.vars).get('bigcommerce_client_id')
-    access_token = dict(flex.vars).get('bigcommerce_access_token')
+    store_hash = dict(params).get('bigcommerce_store_hash')
+    client_id = dict(params).get('bigcommerce_client_id')
+    access_token = dict(params).get('bigcommerce_access_token')
 
     # example store:
     # https://bigcommerce.github.io/storefront-api-examples/html-bootstrap-vanillajs/
@@ -245,26 +254,47 @@ def flexio_handler(flex):
     # products api:
     # https://api.bigcommerce.com/stores/z1koq2uxgr/v3/catalog/products
 
-    url = 'https://api.bigcommerce.com/stores/' + store_hash + '/v3/catalog/products'
     headers = {
         'X-Auth-Client': client_id,
         'X-Auth-Token': access_token
     }
+    url = 'https://api.bigcommerce.com/stores/' + store_hash + '/v3/catalog/products'
+    page_size = 250
+    page_query_str = '?limit=' + str(page_size)
 
-    response = requests.get(url, headers=headers)
-    response.raise_for_status()
-    content = response.json()
+    while True:
 
-    # build up the result
-    result = []
+        page_url = url + page_query_str
+        response = requests_retry_session().get(page_url, headers=headers)
+        response.raise_for_status()
+        content = response.json()
 
-    products = content.get('data')
-    for item in products:
-        result.append(getProductInfo(item))
+        products = content.get('data')
+        for item in products:
+            yield getProductInfo(item)
 
-    result = json.dumps(result, default=to_string)
-    flex.output.content_type = "application/json"
-    flex.output.write(result)
+        page_query_str = content.get('meta',{}).get('pagination',{}).get('links',{}).get('next')
+        if page_query_str is None:
+            break
+
+def requests_retry_session(
+    retries=3,
+    backoff_factor=0.3,
+    status_forcelist=(500, 502, 504),
+    session=None,
+):
+    session = session or requests.Session()
+    retry = Retry(
+        total=retries,
+        read=retries,
+        connect=retries,
+        backoff_factor=backoff_factor,
+        status_forcelist=status_forcelist,
+    )
+    adapter = HTTPAdapter(max_retries=retry)
+    session.mount('http://', adapter)
+    session.mount('https://', adapter)
+    return session
 
 def to_string(value):
     if isinstance(value, (date, datetime)):
