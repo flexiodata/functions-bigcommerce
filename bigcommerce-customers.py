@@ -113,7 +113,7 @@ def get_data(params):
             break
 
         for item in data:
-            yield getItemInfo(item)
+            yield get_item_info(item)
 
         page_idx = page_idx + 1
 
@@ -143,7 +143,7 @@ def to_string(value):
         return str(value)
     return value
 
-def getItemInfo(item):
+def get_item_info(item):
 
     info = OrderedDict()
 
