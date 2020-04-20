@@ -88,7 +88,7 @@ def get_data(params):
     # https://buybutton.store/shop-all/
 
     # customer api:
-    # https://developer.bigcommerce.com/api-reference/store-management/customers-v2/customers/getallcustomers
+    # https://developer.bigcommerce.com/api-reference/store-management/customers-v3/customers/customersget
 
     headers = {
         'X-Auth-Client': client_id,
