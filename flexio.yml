@@ -8,15 +8,24 @@ functions:
   - path: bigcommerce-products.py
 
 templates:
-  - title: Lookup orders in your BigCommerce store
-    description: 'Search and filter current orders in your spreadsheet'
-    gsheets_spreadsheet_id: 168vaaxTIsWhLYIzwhIIycfnTD6BoxNlYWPPxLpozKG0
+  - name: lookup-customers
+    title: Lookup customers for your store
+    description: 'Get information about customers for your store'
+    gsheets_spreadsheet_id: 
     excel_spreadsheet_path: ''
     in_production: false
     in_staging: false
-  - title: Lookup products in your BigCommerce store
-    description: "Interactively search and filter your store's product catalog"
-    gsheets_spreadsheet_id: 16gGIVz3I-W8LZ7FAuekWotv5TKp4nv6xkQ_upjDsAbg
+  - name: lookup-orders
+    title: Lookup orders for your store
+    description: 'Search and filter current orders for your store'
+    gsheets_spreadsheet_id: 
+    excel_spreadsheet_path: ''
+    in_production: false
+    in_staging: false
+  - name: lookup-products
+    title: Lookup products in your store
+    description: "Search and filter your store's product catalog"
+    gsheets_spreadsheet_id: 
     excel_spreadsheet_path: ''
     in_production: false
     in_staging: false
