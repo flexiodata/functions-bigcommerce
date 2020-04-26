@@ -10,14 +10,14 @@ functions:
 templates:
   - name: lookup-customers
     title: Lookup customers for your store
-    description: 'Get information about customers for your store'
+    description: Get information about customers for your store
     gsheets_spreadsheet_id: ''
     excel_spreadsheet_path: ''
     in_production: false
     in_staging: false
   - name: lookup-orders
     title: Lookup orders for your store
-    description: 'Search and filter current orders for your store'
+    description: Search and filter current orders for your store
     gsheets_spreadsheet_id: ''
     excel_spreadsheet_path: ''
     in_production: false
