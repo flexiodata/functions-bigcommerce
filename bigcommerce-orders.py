@@ -18,247 +18,186 @@
 #   - name: id
 #     type: integer
 #     description: The id of the order
-#     info['id'] = item.get('id')
 #   - name: customer_id
 #     type: integer
 #     description: The customer id associated with the order
-#     info['customer_id'] = item.get('customer_id')
 #   - name: billing_address_first_name
 #     type: string
 #     description: The first name of the person on the billing address
-#     info['billing_address_first_name'] = (item.get('billing_address') or {}).get('first_name')
 #   - name: billing_address_last_name
 #     type: string
 #     description: The last name of the person on the billing address
-#     info['billing_address_last_name'] = (item.get('billing_address') or {}).get('last_name')
 #   - name: billing_address_company
 #     type: string
 #     description: The company on the billing address
-#     info['billing_address_company'] = (item.get('billing_address') or {}).get('company')
 #   - name: billing_address_street_1
 #     type: string
 #     description: The first part of the street address for the billing address
-#     info['billing_address_street_1'] = (item.get('billing_address') or {}).get('street_1')
 #   - name: billing_address_street_2
 #     type: string
 #     description: The second part of the street address for the billing address
-#     info['billing_address_street_2'] = (item.get('billing_address') or {}).get('street_2')
 #   - name: billing_address_city
 #     type: string
 #     description: The city part of the street address for the billing address
-#     info['billing_address_city'] = (item.get('billing_address') or {}).get('city')
 #   - name: billing_address_state
 #     type: string
 #     description: The state part of the street address for the billing address
-#     info['billing_address_state'] = (item.get('billing_address') or {}).get('state')
 #   - name: billing_address_zip
 #     type: string
 #     description: The zip part of the street address for the billing address
-#     info['billing_address_zip'] = (item.get('billing_address') or {}).get('zip')
 #   - name: billing_address_country
 #     type: string
 #     description: The country part of the street address for the billing address
-#     info['billing_address_country'] = (item.get('billing_address') or {}).get('country')
 #   - name: billing_address_country_iso2
 #     type: string
 #     description: The country part, in ISO2 format, of the street address for the billing address
-#     info['billing_address_country_iso2'] = (item.get('billing_address') or {}).get('country_iso2')
 #   - name: billing_address_phone
 #     type: string
 #     description: The phone number associated with the billing address
-#     info['billing_address_phone'] = (item.get('billing_address') or {}).get('phone')
 #   - name: billing_address_email
 #     type: string
 #     description: The email associated with the billing address
-#     info['billing_address_email'] = (item.get('billing_address') or {}).get('email')
 #   - name: order_source
 #     type: string
 #     description: The source of the order
-#     info['order_source'] = item.get('order_source')
 #   - name: date_created
 #     type: string
 #     description: The date the order was created
-#     info['date_created'] = to_date(item.get('date_created'))
 #   - name: date_modified
 #     type: string
 #     description: The date the order was last modified
-#     info['date_modified'] = to_date(item.get('date_modified'))
 #   - name: date_shipped
 #     type: string
 #     description: The date the order was shipped
-#     info['date_shipped'] = to_date(item.get('date_shipped'))
 #   - name: cart_id
 #     type: integer
 #     description: The cart id associated with the order
-#     info['cart_id'] = item.get('cart_id')
 #   - name: status_id
 #     type: integer
 #     description: The status id of the order
-#     info['status_id'] = item.get('status_id')
 #   - name: status
 #     type: string
 #     description: The status of the order
-#     info['status'] = item.get('status')
 #   - name: is_deleted
 #     type: boolean
 #     description: Indicates whether the order was deleted
-#     info['is_deleted'] = item.get('is_deleted')
 #   - name: order_is_digital
 #     type: boolean
 #     description: Whether this is an order for digital products
-#     info['order_is_digital'] = item.get('order_is_digital')
 #   - name: items_total
 #     type: integer
 #     description: The total number of items in the order
-#     info['items_total'] = item.get('items_total')
 #   - name: items_shipped
 #     type: integer
 #     description: The number of items that have been shipped
-#     info['items_shipped'] = item.get('items_shipped')
 #   - name: payment_method
 #     type: string
 #     description: The payment method for this order
-#     info['payment_method'] = item.get('payment_method')
 #   - name: payment_status
 #     type: string
 #     description: The status of the payment for this order
-#     info['payment_status'] = item.get('payment_status')
 #   - name: staff_notes
 #     type: string
 #     description: Any additional notes for staff
-#     info['staff_notes'] = item.get('staff_notes')
 #   - name: customer_message
 #     type: string
 #     description: Message that the customer entered in the Order Comments box during checkout
-#     info['customer_message'] = item.get('customer_message')
 #   - name: subtotal_ex_tax
 #     type: number
 #     description: Override value for subtotal excluding tax
-#     info['subtotal_ex_tax'] = to_number(item.get('subtotal_ex_tax'))
 #   - name: subtotal_inc_tax
 #     type: number
 #     description: Override value for subtotal including tax
-#     info['subtotal_inc_tax'] = to_number(item.get('subtotal_inc_tax'))
 #   - name: subtotal_tax
 #     type: number
 #     description: Override value for tax
-#     info['subtotal_tax'] = to_number(item.get('subtotal_tax'))
 #   - name: base_shipping_cost
 #     type: number
 #     description: The value of the base shipping cost
-#     info['base_shipping_cost'] = to_number(item.get('base_shipping_cost'))
 #   - name: shipping_cost_ex_tax
 #     type: number
 #     description: The value of shipping cost, excluding tax
-#     info['shipping_cost_ex_tax'] = to_number(item.get('shipping_cost_ex_tax'))
 #   - name: shipping_cost_inc_tax
 #     type: number
 #     description: The value of shipping cost, including tax
-#     info['shipping_cost_inc_tax'] = to_number(item.get('shipping_cost_inc_tax'))
 #   - name: shipping_cost_tax
 #     type: number
 #     description: The tax part of the value of the shipping cost
-#     info['shipping_cost_tax'] = to_number(item.get('shipping_cost_tax'))
 #   - name: shipping_cost_tax_class_id
 #     type: integer
 #     description: The shipping cost tax class id
-#     info['shipping_cost_tax_class_id'] = item.get('shipping_cost_tax_class_id')
 #   - name: base_handling_cost
 #     type: number
 #     description: The value of the base handling cost
-#     info['base_handling_cost'] = to_number(item.get('base_handling_cost'))
 #   - name: handling_cost_ex_tax
 #     type: number
 #     description: The value of the handling cost, excluding tax
-#     info['handling_cost_ex_tax'] = to_number(item.get('handling_cost_ex_tax'))
 #   - name: handling_cost_inc_tax
 #     type: number
 #     description: The value of the handling cost, including tax
-#     info['handling_cost_inc_tax'] = to_number(item.get('handling_cost_inc_tax'))
 #   - name: handling_cost_tax
 #     type: number
 #     description: The tax part of the value of the handling cost
-#     info['handling_cost_tax'] = to_number(item.get('handling_cost_tax'))
 #   - name: handling_cost_tax_class_id
 #     type: integer
 #     description: The handling cost tax class id
-#     info['handling_cost_tax_class_id'] = item.get('handling_cost_tax_class_id')
 #   - name: base_wrapping_cost
 #     type: number
 #     description: The value of the base wrapping cost.
-#     info['base_wrapping_cost'] = to_number(item.get('base_wrapping_cost'))
 #   - name: wrapping_cost_ex_tax
 #     type: number
 #     description: The value of the wrapping cost, excluding tax
-#     info['wrapping_cost_ex_tax'] = to_number(item.get('wrapping_cost_ex_tax'))
 #   - name: wrapping_cost_inc_tax
 #     type: number
 #     description: The value of the wrapping cost, including tax
-#     info['wrapping_cost_inc_tax'] = to_number(item.get('wrapping_cost_inc_tax'))
 #   - name: wrapping_cost_tax
 #     type: number
 #     description: The tax part of the value of the wrapping cost
-#     info['wrapping_cost_tax'] = to_number(item.get('wrapping_cost_tax'))
 #   - name: wrapping_cost_tax_class_id
 #     type: integer
 #     description: The wrapping cost tax class id
-#     info['wrapping_cost_tax_class_id'] = item.get('wrapping_cost_tax_class_id')
 #   - name: total_ex_tax
 #     type: number
 #     description: Override value for the total, excluding tax
-#     info['total_ex_tax'] = to_number(item.get('total_ex_tax'))
 #   - name: total_inc_tax
 #     type: number
 #     description: Override value for the total, including tax
-#     info['total_inc_tax'] = to_number(item.get('total_inc_tax'))
 #   - name: total_tax
 #     type: number
 #     description: The tax part of the value of the total cost
-#     info['total_tax'] = to_number(item.get('total_tax'))
 #   - name: discount_amount
 #     type: number
 #     description: The discount amount associated with this order
-#     info['discount_amount'] = to_number(item.get('discount_amount'))
 #   - name: gift_certificate_amount
 #     type: number
 #     description: The gift certificate amount associated with this order
-#     info['gift_certificate_amount'] = to_number(item.get('gift_certificate_amount'))
 #   - name: coupon_discount
 #     type: number
 #     description: The coupon amount associated with this order
-#     info['coupon_discount'] = to_number(item.get('coupon_discount'))
 #   - name: store_credit_amount
 #     type: number
 #     description: The store credit that the shopper has redeemed on this order
-#     info['store_credit_amount'] = to_number(item.get('store_credit_amount'))
 #   - name: refunded_amount
 #     type: number
 #     description: The amount refunded from this transaction
-#     info['refunded_amount'] = to_number(item.get('refunded_amount'))
 #   - name: ip_address
 #     type: string
 #     description: The IP Address of the customer, if known
-#     info['ip_address'] = item.get('ip_address')
 #   - name: geoip_country
 #     type: string
 #     description: The full name of the country where the customer made the purchase, based on the IP
-#     info['geoip_country'] = item.get('geoip_country')
 #   - name: geoip_country_iso2
 #     type: string
 #     description: The country where the customer made the purchase, in ISO2 format, based on the IP
-#     info['geoip_country_iso2'] = item.get('geoip_country_iso2')
 #   - name: default_currency_code
 #     type: string
 #     description: The currency code of the default currency for this type of transaction
-#     info['default_currency_code'] = item.get('default_currency_code')
 #   - name: currency_code
 #     type: string
 #     description: The currency code of the currency being used in the order
-#     info['currency_code'] = item.get('currency_code')
 #   - name: currency_exchange_rate
 #     type: number
 #     description: The currency exchange rate associated with the order
-#     info['currency_exchange_rate'] = to_number(item.get('currency_exchange_rate'))
 # examples:
 #   - '"*"'
 #   - '"id, customer_id, date_created, status"'
