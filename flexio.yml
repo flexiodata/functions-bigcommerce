@@ -16,22 +16,22 @@ templates:
     description: Get information about customers for your store
     gsheets_spreadsheet_id: '1Gc4f1AbbRM91MyR45LnFXhWjtmtrOAxTArdBMFdYFQQ'
     excel_spreadsheet_path: 'https://static.flex.io/templates/bigcommerce/bigcommerce-search-and-filter-customers.xlsx'
-    in_production: true
-    in_staging: false
+    is_public: true
+    is_private: false
   - name: lookup-orders
     title: Lookup orders for your store
     description: Search and filter current orders for your store
     gsheets_spreadsheet_id: '1vRYrCwo-Kby0-KYTXYDAgr7-r8v7yk9xvn6yJwp_J3o'
     excel_spreadsheet_path: 'https://static.flex.io/templates/bigcommerce/bigcommerce-search-and-filter-orders.xlsx'
-    in_production: true
-    in_staging: false
+    is_public: true
+    is_private: false
   - name: lookup-products
     title: Lookup products in your store
     description: "Search and filter your store's product catalog"
     gsheets_spreadsheet_id: '1vxTJstBs6YjmcBPUBQYPr2v7Az9Elflj0eBMUMd1d9k'
     excel_spreadsheet_path: 'https://static.flex.io/templates/bigcommerce/bigcommerce-search-and-filter-products.xlsx'
-    in_production: true
-    in_staging: false
+    is_public: true
+    is_private: false
 
 prompts:
   - element: form
